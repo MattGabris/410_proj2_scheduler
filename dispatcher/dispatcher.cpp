@@ -7,3 +7,18 @@
 
 //TODO fill in content
 
+#include "../includes/dispatcher.h"
+
+PCB Dispatcher::get_from_CPU(){
+	is_valid_job_on_cpu = false;
+	return cpu->get_process_off_core();
+}
+
+void Dispatcher::put_on_CPU(PCB &process){
+	is_valid_job_on_cpu = true;
+	cpu->put_process_on_core(process);
+}
+
+bool Dispatcher::isValidJobOnCPU() {
+	return is_valid_job_on_cpu;
+}
