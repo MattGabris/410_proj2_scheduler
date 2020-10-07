@@ -27,15 +27,16 @@ bool cpu_time_sort(const PCB& x, const PCB& y) {
 	return x.remaining_cpu_time > y.remaining_cpu_time;
 }
 void Scheduler_SRTF::sort() {
-	vector<PCB> queue;
+	preemptive = true;
+	vector<PCB> temp;
 
 	while(!ready_q->empty()){
-		queue.push_back(ready_q->front());
+		temp.push_back(ready_q->front());
 		ready_q->pop();
 	}
-	std::sort(queue.begin(), queue.end(), cpu_time_sort);
-	while(!queue.empty()){
-		ready_q->push(queue.back());
-		queue.pop_back();
+	std::sort(temp.begin(), temp.end(), cpu_time_sort);
+	while(!temp.empty()){
+		ready_q->push(temp.back());
+		temp.pop_back();
 	}
 }
